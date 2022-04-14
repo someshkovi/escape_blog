@@ -1,0 +1,6 @@
+static_root/
+
+**/*.pyc
+**/__pycache__
+src/media
+src/static
