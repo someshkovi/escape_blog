@@ -31,7 +31,10 @@ INSTALLED_APPS = [
     'marketing',
 
     'tinymce',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -126,8 +129,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Tinymce
 
 TINYMCE_DEFAULT_CONFIG = {
-    'height': 360,
-    'width': 1120,
+    # 'height': 360,
+    # 'width': 1120,
     'cleanup_on_startup': True,
     'custom_undo_redo_levels': 20,
     'selector': 'textarea',

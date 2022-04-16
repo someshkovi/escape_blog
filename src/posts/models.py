@@ -24,7 +24,7 @@ class Post(models.Model):
     title = models.CharField(max_length=50)
     overview = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
-    contet = HTMLField()
+    content = HTMLField()
     comment_count = models.IntegerField(default=0)
     view_count = models.IntegerField(default=0)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
@@ -39,6 +39,16 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse("post-detail", kwargs={"id": self.id})
+
+    def get_update_url(self):
+        return reverse("post-update", kwargs={
+            "id": self.id
+        })
+
+    def get_delete_url(self):
+        return reverse("post-delete", kwargs={
+            "id": self.id
+        })
 
     @property
     def get_comments(self):

@@ -6,7 +6,7 @@
     </header>
     <form action="{% url 'search' %}" class="search-form">
     <div class="form-group">
-        <input type="text" name=q placeholder="What are you looking for?">
+        <input type="text" name="q" placeholder="What are you looking for?">
         <button type="submit" class="submit"><i class="icon-search"></i></button>
     </div>
     </form>
@@ -45,7 +45,7 @@
     {% endfor %}
 </div>
 <!-- Widget [Tags Cloud Widget]-->
-<div class="widget tags">       
+{% comment %} <div class="widget tags">       
     <header>
     <h3 class="h6">Tags</h3>
     </header>
@@ -56,5 +56,5 @@
     <li class="list-inline-item"><a href="#" class="tag">#Sports</a></li>
     <li class="list-inline-item"><a href="#" class="tag">#Economy</a></li>
     </ul>
-</div>
+</div> {% endcomment %}
 </aside>

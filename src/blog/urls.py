@@ -8,8 +8,11 @@ from posts import views
 urlpatterns = [
     path('', views.index),
     path('blog/', views.blog, name='post-list'),
-    path('post/<id>/', views.post, name='post-detail'),
     path('search/', views.search, name='search'),
+    path('create/', views.post_create, name='post-create'),
+    path('post/<id>/', views.post, name='post-detail'),
+    path('post/<id>/update/', views.post_update, name='post-update'),
+    path('post/<id>/delete/', views.post_delete, name='post-delete'),
     path('tinymce/', include('tinymce.urls')),
     path('admin/', admin.site.urls),
 ]
