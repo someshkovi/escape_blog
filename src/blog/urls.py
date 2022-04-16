@@ -7,8 +7,9 @@ from posts import views
 
 urlpatterns = [
     path('', views.index),
-    path('blog/', views.blog),
-    path('post/', views.post),
+    path('blog/', views.blog, name='post-list'),
+    path('post/<id>/', views.post, name='post-detail'),
+    path('search/', views.search, name='search'),
     path('admin/', admin.site.urls),
 ]
 
