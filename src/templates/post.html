@@ -107,6 +107,8 @@
                       </div>
                     </form>
                   </div>
+                {% else %}
+                  <a href = "{% url 'account_login' %}"> <button type="submit" class="btn btn-primary">Login to Comment</button></a>
                 {% endif %}
               </div>
             </div>
