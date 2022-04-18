@@ -23,8 +23,12 @@
                     {% endfor %}
                   </div>
                   <div>
-                    <a href="{% url 'post-update' id=post.id %}">Update</a>
-                    <a href="{% url 'post-delete' id=post.id %}">Delete</a>
+                    <a href="{% url 'post-update' id=post.id %}">
+                      <img src="{% static 'icons/icons8-edit-2.svg '%}">
+                    </a>
+                    <a href="{% url 'post-delete' id=post.id %}"><img src="{% static 'icons/icons8-delete.svg' %}"></a>
+                    {% comment %} <a href="{% url 'post-update' id=post.id %}" class="btn btn-primary btn-round shadow-lg">Update</a> {% endcomment %}
+                    {% comment %} <a href="{% url 'post-delete' id=post.id %}" class="btn btn-round shadow-lg">Delete</a> {% endcomment %}
                   </div>
                 </div>
                 <h1>{{ post.title }}<a href="#"><i class="fa fa-bookmark-o"></i></a></h1>
@@ -71,7 +75,7 @@
                               {% if comment.user.author %}
                                 <img src="{{ comment.user.author.profile_picture.url }}" alt="..." class="img-fluid rounded-circle">
                               {% else %}
-                                <img src="{% static 'img/user.svg '%}" alt="..." class="img-fluid rounded-circle">
+                                <img src="{% static 'icons/user.svg '%}" alt="..." class="img-fluid rounded-circle">
                               {% endif %}
                           </div>
                           <div class="title"><strong>{{ comment.user.username }}</strong><span class="date">{{ comment.timestamp|timesince }} ago</span></div>

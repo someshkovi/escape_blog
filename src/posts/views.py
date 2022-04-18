@@ -1,8 +1,10 @@
 from turtle import title
 from urllib.request import Request
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib import messages
 from django.db.models import Count, Q
 from django.shortcuts import redirect, reverse, render, get_object_or_404
+from django.http import HttpResponseRedirect
 from posts.forms import CommentForm, PostForm
 from posts.models import Post, Author, PostView
 from marketing.models import Signup
@@ -38,16 +40,18 @@ def index(request):
     featured = Post.objects.filter(featured=True)
     latest = Post.objects.order_by('-timestamp')[0:3]
 
+    context = {
+        'object_list':featured,
+        'latest':latest
+    }
     if request.method == "POST":
         email = request.POST['email']
         new_signup = Signup()
         new_signup.email = email
         new_signup.save()
+        messages.success(request, f"{email} successfully subscribed")
+        return HttpResponseRedirect('/')
 
-    context = {
-        'object_list':featured,
-        'latest':latest
-    }
     return render(request, 'index.html', context)
 
 def blog(request):
@@ -137,5 +141,14 @@ def post_update(request, id):
 
 def post_delete(request, id):
     post = get_object_or_404(Post, id=id)
-    post.delete()
-    return redirect(reverse('post-list'))
+    if request.method == 'POST':
+        post.delete()
+        return redirect(reverse('post-list'))
+    # post.delete()
+    # return redirect(reverse('post-list'))
+
+    context = {
+        'post':post
+    }
+
+    return render(request, 'post_delete.html', context)
