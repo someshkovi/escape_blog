@@ -27,8 +27,10 @@
         <!-- Post-->
         {% for obj in object_list %}
           <div class="row d-flex align-items-stretch">
-            {% if not forloop.first and not forloop.last %}
-              <div class="image col-lg-5"><img src="{{ obj.thumbnail.url }}" alt="..."></div>
+            {% if obj.thumbnail %}
+              {% if not forloop.first and not forloop.last %}
+                <div class="image col-lg-5"><img src="{{ obj.thumbnail.url }}" alt="..."></div>
+              {% endif %}
             {% endif %}
             <div class="text col-lg-7">
               <div class="text-inner d-flex align-items-center">
@@ -51,8 +53,10 @@
                 </div>
               </div>
             </div>
-            {% if forloop.first or forloop.last %}
-              <div class="image col-lg-5"><img src="{{ obj.thumbnail.url }}" alt="..."></div>
+            {% if obj.thumbnail %}
+              {% if forloop.first or forloop.last %}
+                <div class="image col-lg-5"><img src="{{ obj.thumbnail.url }}" alt="..."></div>
+              {% endif %}
             {% endif %}
           </div>
         {% endfor %}
@@ -78,7 +82,9 @@
         <div class="row">
           {% for obj in latest%}
             <div class="post col-md-4">
-              <div class="post-thumbnail"><a href="#"><img src="{{ obj.thumbnail.url }}" alt="..." class="img-fluid"></a></div>
+              {% if obj.thumbnail %}
+                <div class="post-thumbnail"><a href="#"><img src="{{ obj.thumbnail.url }}" alt="..." class="img-fluid"></a></div>
+              {% endif %}
               <div class="post-details">
                 <div class="post-meta d-flex justify-content-between">
                   <div class="date">{{ obj.timestamp }}</div>
