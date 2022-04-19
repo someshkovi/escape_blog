@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
+    <head>
     {% include "head.html" %}
+        <title>{% block title %}{% endblock %} | Escape</title>
+    </head>
     <body>
         {% include "header.html" %}
         {% include 'messages.html' %}
@@ -8,5 +11,7 @@
         {% endblock content %}
         {% include "footer.html" %}
         {% include "scripts.html" %}
+        <!-- Specific Page JS goes HERE  -->
+        {% block javascripts %}{% endblock javascripts %}
     </body>
 </html>
