@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from django.contrib.messages import constants as messages
 
@@ -23,7 +24,7 @@ SECRET_KEY = 'django-insecure-*fuc=(2#qh2hb#r0$2o*c(g#sx$p=p8(7uby#41%v0z=$1k80&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['someshkovi.pythonanywhere.com']
 
 
 # Application definition
