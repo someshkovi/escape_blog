@@ -1,13 +1,42 @@
-name: Testing
-on: push
+name: Test Escape blog
+
+on:
+  push:
+    brances:
+      - main
 
 jobs:
   escape_blog_test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Run Django unit tests
+
+    - name: Setup Python version
+      uses: actions/setup-pyton@v2
+      with:
+        python-version: 3.10
+
+    - name: Create and start virtual environment
       run: |
-        pip3 install --user -r requirements.txt
+        python3 -m venv venv
+        source venv/bin/activate
+
+    - name: Install dependencies
+      run: pip3 install --user -r requirements.txt
+
+    - name: Collect static
+      run: |
         cd src
-        python3 manage.py test
+        python3 manage.py collectstatic
+
+    - name: Run Django unit tests
+      run: python3 manage.py test
+
+    - name: Upload artifact for deployment jobs
+      uses: actions/upload-artifact@v2
+      with:
+        name: python-app
+        path: |
+          . 
+          !venv/
+  
