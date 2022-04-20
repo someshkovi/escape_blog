@@ -1,5 +1,3 @@
-from turtle import title
-from urllib.request import Request
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.db.models import Count, Q

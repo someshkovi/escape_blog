@@ -1,12 +1,8 @@
-import datetime
-from urllib import response
 from django.contrib.auth.models import User
-from django.test import TestCase, Client
-from django.utils import timezone
-from django.urls import reverse
+from django.test import TestCase
 from django.db.models import Max
 
-from .models import Post, Author, Comment, Category, PostView
+from .models import Post, Author
 
 class PostModelTests(TestCase):
     def setUp(self):
@@ -51,7 +47,7 @@ class PostModelTests(TestCase):
     def test_post_creation(self):
         p = Post.objects.get(title='title')
         self.assertEqual(p.overview, 'overview')
-        
+
     def test_index(self):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)

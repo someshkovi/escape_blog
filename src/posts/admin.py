@@ -11,7 +11,8 @@ class postAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Overview',               {'fields': ['title','overview','thumbnail']}),
         (None,               {'fields': ['content','publish']}),
-        ('Tagging', {'fields': ['author', 'categories', 'previous_post', 'next_post'], 'classes': ['collapse']}),
+        ('Tagging', {'fields': ['author', 'categories', 'previous_post', 'next_post'],
+         'classes': ['collapse']}),
     ]
 
 admin.site.register(Author, authorAdmin)

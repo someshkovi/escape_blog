@@ -1,8 +1,4 @@
 import datetime
-from operator import mod
-from statistics import mode
-from tkinter import CASCADE
-from unicodedata import category
 from django.contrib import admin
 from django.db import models
 from django.utils import timezone
@@ -21,7 +17,8 @@ class PostView(models.Model):
 
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(upload_to='profile_pic', blank=True, null=True)# default='profile_pic/usr.svg'
+    profile_picture = models.ImageField(upload_to='profile_pic', 
+                        blank=True, null=True)
 
     def __str__(self) -> str:
         return self.user.username
@@ -52,8 +49,10 @@ class Post(models.Model):
     thumbnail = models.ImageField(blank=True, null=True)
     categories = models.ManyToManyField(Category)
     featured = models.BooleanField(default=False)
-    previous_post = models.ForeignKey('self', related_name='previous', on_delete=models.SET_NULL, blank=True, null=True)
-    next_post = models.ForeignKey('self', related_name='next', on_delete=models.SET_NULL, blank=True, null=True)
+    previous_post = models.ForeignKey('self', related_name='previous',
+                    on_delete=models.SET_NULL, blank=True, null=True)
+    next_post = models.ForeignKey('self', related_name='next',
+                 on_delete=models.SET_NULL, blank=True, null=True)
     publish = models.BooleanField(default=True)
     created_date = models.DateTimeField(default=timezone.now, editable=False)
     pub_date = models.DateTimeField(blank=True, null=True, editable=False)
@@ -64,7 +63,7 @@ class Post(models.Model):
         if self.pub_date and not self.publish:
             self.pub_date = None
         self.timestamp = timezone.now()
-        super(Post, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def __str__(self) -> str:
         return f'{self.title} by {self.author}'
@@ -112,4 +111,3 @@ class Post(models.Model):
     @property
     def view_count(self):
         return PostView.objects.filter(post=self).count()
-
