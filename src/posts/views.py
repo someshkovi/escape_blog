@@ -4,6 +4,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.db.models import Count, Q
 from django.shortcuts import redirect, reverse, render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 from django.http import HttpResponseRedirect
 from posts.forms import CommentForm, PostForm
 from posts.models import Post, Author, PostView
@@ -37,8 +39,8 @@ def get_category_count():
     return queryset
 
 def index(request):
-    featured = Post.objects.filter(featured=True)
-    latest = Post.objects.order_by('-timestamp')[0:3]
+    featured = Post.objects.filter(pub_date__lte=timezone.now()).filter(featured=True)
+    latest = Post.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[0:3]
 
     context = {
         'object_list':featured,
@@ -56,8 +58,8 @@ def index(request):
 
 def blog(request):
     category_count = get_category_count()
-    most_recent = Post.objects.order_by('-timestamp')[:3]
-    post_list = Post.objects.order_by('-timestamp')
+    most_recent = Post.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:3]
+    post_list = Post.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')
     paginator = Paginator(post_list, 4)
     page_request_var = 'page'
     page = request.GET.get(page_request_var)
@@ -78,7 +80,7 @@ def blog(request):
 
 def post(request, id):
     category_count = get_category_count()
-    most_recent = Post.objects.order_by('-timestamp')[:3]
+    most_recent = Post.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:3]
     post = get_object_or_404(Post, id=id)
 
     if request.user.is_authenticated:
@@ -101,10 +103,14 @@ def post(request, id):
     }
     return render(request, 'post.html', context)
 
+@login_required(login_url='account_login')
 def post_create(request):
     title = 'Create'
     form = PostForm(request.POST or None, request.FILES or None)
     author = get_author(request.user)
+    if author is None:
+        Author.objects.create(user=request.user)
+        author = get_author(request.user)
     if request.method == "POST":
         if form.is_valid():
             form.instance.author = author
@@ -118,6 +124,7 @@ def post_create(request):
     }
     return render(request, "post_create.html", context)
 
+@login_required(login_url='account_login')
 def post_update(request, id):
     title = 'Update'
     post = get_object_or_404(Post, id=id)
@@ -135,10 +142,12 @@ def post_update(request, id):
             }))
     context = {
         'title':title,
-        'form':form
+        'form':form,
+        'post':post
     }
     return render(request, "post_create.html", context)
 
+@login_required
 def post_delete(request, id):
     post = get_object_or_404(Post, id=id)
     if request.method == 'POST':

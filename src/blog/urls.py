@@ -25,3 +25,7 @@ if settings.DEBUG:
     urlpatterns += [
         path('__debug__/', include('debug_toolbar.urls')),
     ]
+
+admin.site.site_header  =  "Escape admin"  
+admin.site.site_title  =  "Escape admin site"
+admin.site.index_title  =  "Escape Admin"

@@ -1,8 +1,11 @@
+import datetime
 from operator import mod
 from statistics import mode
 from tkinter import CASCADE
 from unicodedata import category
+from django.contrib import admin
 from django.db import models
+from django.utils import timezone
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from tinymce import HTMLField
@@ -14,11 +17,11 @@ class PostView(models.Model):
     post = models.ForeignKey('Post', on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return self.user.username
+        return f'{self.user.username} comment on {self.post.title}'
 
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField()
+    profile_picture = models.ImageField(upload_to='profile_pic', blank=True, null=True)# default='profile_pic/usr.svg'
 
     def __str__(self) -> str:
         return self.user.username
@@ -36,12 +39,12 @@ class Comment(models.Model):
     post = models.ForeignKey('Post', related_name='comments', on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return self.user.username
+        return f'{self.user.username} comment on {self.post.title}'
 
 class Post(models.Model):
     title = models.CharField(max_length=50)
     overview = models.TextField()
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(blank=True, null=True, editable=False)
     content = HTMLField()
     # comment_count = models.IntegerField(default=0)
     # view_count = models.IntegerField(default=0)
@@ -51,9 +54,39 @@ class Post(models.Model):
     featured = models.BooleanField(default=False)
     previous_post = models.ForeignKey('self', related_name='previous', on_delete=models.SET_NULL, blank=True, null=True)
     next_post = models.ForeignKey('self', related_name='next', on_delete=models.SET_NULL, blank=True, null=True)
+    publish = models.BooleanField(default=True)
+    created_date = models.DateTimeField(default=timezone.now, editable=False)
+    pub_date = models.DateTimeField(blank=True, null=True, editable=False)
+
+    def save(self, *args, **kwargs):
+        if self.publish and not self.pub_date:
+            self.pub_date = timezone.now()
+        if self.pub_date and not self.publish:
+            self.pub_date = None
+        self.timestamp = timezone.now()
+        super(Post, self).save(*args, **kwargs)
 
     def __str__(self) -> str:
-        return self.title
+        return f'{self.title} by {self.author}'
+
+    @admin.display(
+        boolean=True,
+        ordering='pub_date',
+        description='Published recently?',
+    )
+    def was_published_recently(self):
+        if not self.pub_date:
+            return False
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.pub_date <= now
+
+    def was_added_recently(self):
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.created_date <= now
+
+    def was_modified_recently(self):
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.timestamp <= now
 
     def get_absolute_url(self):
         return reverse("post-detail", kwargs={"id": self.id})
