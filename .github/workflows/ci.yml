@@ -1,0 +1,12 @@
+name: Testing
+on: push
+
+jobs:
+  escape_blog_test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run Django unit tests
+      run: |
+        pip3 install --user -r requirements.txt
+        python3 src/manage.py test

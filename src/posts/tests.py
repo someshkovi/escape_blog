@@ -1,9 +1,10 @@
 import datetime
 from urllib import response
 from django.contrib.auth.models import User
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.utils import timezone
 from django.urls import reverse
+from django.db.models import Max
 
 from .models import Post, Author, Comment, Category, PostView
 
@@ -62,3 +63,7 @@ class PostModelTests(TestCase):
         response = self.client.get(f'/post/{p.id}/')
         self.assertEqual(response.status_code, 200)
 
+    def test_invalid_post_page(self):
+        max_id = Post.objects.all().aggregate(Max('id'))['id__max']
+        response = self.client.get(f'/post/{max_id+1}/')
+        self.assertEqual(response.status_code, 404)

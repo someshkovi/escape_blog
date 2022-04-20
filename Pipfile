@@ -10,6 +10,8 @@ django-tinymce4-lite = "*"
 django = "==3.2"
 django-crispy-forms = "*"
 django-allauth = "*"
+python-dotenv = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 
