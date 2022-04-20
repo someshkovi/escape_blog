@@ -30,7 +30,9 @@ jobs:
         python3 manage.py collectstatic
 
     - name: Run Django unit tests
-      run: python3 manage.py test
+      run: |
+        cd src
+        python3 manage.py test
 
     - name: Upload artifact for deployment jobs
       uses: actions/upload-artifact@v2
