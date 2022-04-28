@@ -24,7 +24,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'test-secret-key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('SECRET_KEY', True)
 
-ALLOWED_HOSTS = ['.pythonanywhere.com', '152.67.161.19']
+ALLOWED_HOSTS = ['localhost','.pythonanywhere.com', '152.67.161.19']
 
 
 # Application definition
@@ -39,6 +39,12 @@ INSTALLED_APPS = [
 
     'posts',
     'marketing',
+    'tweets',
+    'api',
+
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
 
     'tinymce',
     'crispy_forms',
@@ -198,3 +204,13 @@ if DEBUG:
     import socket
     hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
     INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + ["127.0.0.1", "10.0.2.2"]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+],
+}

@@ -39,6 +39,6 @@ jobs:
       with:
         name: python-app
         path: |
-          . 
+          src/debug.log
           !venv/
   
