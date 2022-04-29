@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+  {% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'tweets/css/style.css' %}" />
+  {% endblock stylesheets %}
+{% block content %}
+  <!-- sidebar starts -->
+  <!-- sidebar ends -->
+
+  <!-- feed starts -->
+  <div class="container">
+    <div class="row">
+      <main class="posts-listing col-lg-8">
+        <div class="contatiner">
+          <!-- tweetbox starts -->
+          <div class="tweetBox">
+            <form action="" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="tweetbox__input">
+                <img src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png" alt=""/>
+                {{ form.body }}
+                {% comment %} <input type="text" name="body" id="body" value={{ form.body }} placeholder="What's happening?"/> {% endcomment %}
+                {% comment %} {{ form.thumbnail }} {% endcomment %}
+
+                {% comment %} <div class="custom-file">
+                  {{ form.thumbnail }}
+                  <label class="custom-file-label" for="id_thumbnail">Choose file</label>
+                </div>
+              </div> {% endcomment %}
+              {% comment %} {{ form.thumbnail }} {% endcomment %}
+
+
+{% comment %} 
+              <div class="form-row field-thumbnail">
+                <div>
+                  <label for="id_thumbnail">Thumbnail:</label>
+                    <input type="file" name="thumbnail" accept="image/*" id="id_thumbnail">
+                </div>
+              </div> {% endcomment %}
+
+
+
+
+
+
+              {% comment %} <div class="fieldWrapper">
+                {{ form.message.errors }}
+                <button><label for="{{ form.thumbnail }}"> image</label></button>
+
+                {{ form.message }}
+              </div> {% endcomment %}
+
+
+              <button type="submit" class="tweetBox__tweetButton">Tweet</button>
+            
+            </form>
+          </div>
+          <!-- tweetbox ends -->
+          <!-- post starts -->
+          {% for post in queryset %}
+            <div class="post">
+              <div class="post__avatar">
+                {% if post.user.profile_picture %}
+                  <img src="{{ post.user.profile_picture.url }}" alt="..." class="img-fluid">
+                {% else %}
+                  <img src="{% static 'img/user.svg' %}" alt="..." class="img-fluid">
+                {% endif %}
+              </div>
+
+              <div class="post__body">
+                <div class="post__header">
+                  <div class="post__headerText">
+                    <h3>
+                      {{ post.user.username }}
+                      <span class="post__headerSpecial"
+                        ><span class="material-icons post__badge"> verified </span>@somanathg</span
+                      >
+                    </h3>
+                  </div>
+                  <div class="post__headerDescription">
+                    <p>{{ post.body }}</p>
+                  </div>
+                </div>
+                {% if post.thumbnail %}
+                  <div class="imageContainer">
+                    <img src="{{ post.thumbnail.url }}" alt=""/>
+                  </div>
+                {% endif %}
+                <div class="post__footer">
+                  <span class="material-icons"> repeat </span>
+                  <span class="material-icons"> favorite_border </span>
+                  <span class="material-icons"> publish </span>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+          <!-- post ends -->
+          <!-- Pagination -->
+          <nav aria-label="Page navigation example">
+            <ul class="pagination pagination-template d-flex justify-content-center">
+              {% if queryset.has_previous %}
+                <li class="page-item"><a href="?{{ page_request_var }}={{ queryset.previous_page_number }}" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
+              {% endif %}
+                <li class="page-item"><a href="?{{ page_request_var }}={{ queryset.number }}" class="page-link active">{{ queryset.number }}</a></li>
+              {% comment %} <li class="page-item"><a href="#" class="page-link">2</a></li> {% endcomment %}
+              {% if queryset.has_next %}
+                <li class="page-item"><a href="?{{ page_request_var }}={{ queryset.next_page_number }}" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
+              {% endif %}
+            </ul>
+          </nav>
+        </div>
+      </main>
+    </div>
+  </div>
+  <!-- feed ends -->
+
+{% endblock content %}

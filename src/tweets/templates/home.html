@@ -2,6 +2,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+<div>
+  {% comment %} <div class="nav-left">
+    <h1><a href="{% url 'home' %}">Tweeter</a></h1>
+  </div> {% endcomment %}
+  <div class="nav-right">
+    <a href="{% url 'tweets:tweet_new' %}">Add Tweet</a>
+  </div>
+</div>
+
   {% for tweet in object_list %}
     <div class="tweet-entry">
     <h4>{{ tweet.body }}</h4>

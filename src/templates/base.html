@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-    {% include "head.html" %}
+        {% include "head.html" %}
         <title>{% block title %}{% endblock %} | Escape</title>
+        <!-- Specific Page CSS goes HERE  -->
+        {% block stylesheets %}{% endblock stylesheets %}
     </head>
     <body>
         {% include "header.html" %}
