@@ -22,6 +22,9 @@ $ # Create tables
 $ python manage.py makemigrations
 $ python manage.py migrate
 $
+$ # Create superuser
+$ python manage.py createsuperuser
+$
 $ # Start the application (development mode)
 $ python manage.py runserver # default port 8000
 $
