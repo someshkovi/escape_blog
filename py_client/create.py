@@ -1,0 +1,26 @@
+import requests
+from getpass import getpass
+
+auth_endpoint = "http://127.0.0.1:8000/api/v1/auth/"
+username = 's'  #input('What is your username?\n')
+password = 's'  #getpass('What is your password?\n')
+
+auth_response = requests.post(auth_endpoint, json={'username':username, 'password':password})
+print(auth_response.json())
+
+if auth_response.status_code == 200:
+    token = auth_response.json()['token']
+    headers = {
+        "Authorization":f"Bearer {token}"
+    }
+
+    endpoint = "http://127.0.0.1:8000/api/v1/tweets/"
+
+    data = {
+        'user':1,
+        "body": "killer app"
+    }
+
+    get_response = requests.post(endpoint, json=data, headers=headers)
+
+    print(get_response.json())
