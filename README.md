@@ -18,6 +18,8 @@ $
 $ # Install modules - SQLite Storage
 $ pip3 install -r requirements.txt
 $
+$ cd src #change directory
+$
 $ # Create tables
 $ python manage.py makemigrations
 $ python manage.py migrate
