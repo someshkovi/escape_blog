@@ -34,7 +34,7 @@
                       {% else %}
                         <div class="avatar"><img src="{% static 'img/user.svg' %}" alt="..." class="img-fluid"></div>
                       {% endif %}
-                      <div class="title"><span>{{ post.author.username }}</span></div>
+                      <div class="title"><span>{{ post.author }}</span></div>
                     </a>
                     <div class="date"><i class="icon-clock"></i> {{ post.pub_date|timesince }} ago</div>
                     <div class="comments meta-last"><i class="icon-comment"></i>{{ post.comment_count }}</div>

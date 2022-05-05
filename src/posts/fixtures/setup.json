@@ -1,0 +1,22 @@
+[
+    {
+      "model": "posts.Category",
+      "pk": 1,
+      "fields": {
+        "title": "General"
+      }
+    },
+    {
+        "model": "posts.Category",
+        "pk": 2,
+        "fields": {
+          "title": "Tech"
+        }
+    },
+    {
+      "model": "posts.Category",
+      "fields": {
+        "title": "New-release"
+      }
+  }
+  ]

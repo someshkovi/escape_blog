@@ -24,7 +24,7 @@ class Author(models.Model):
         return self.user.username
 
 class Category(models.Model):
-    title = models.CharField(max_length=20)
+    title = models.CharField(max_length=20, unique=True)
 
     def __str__(self) -> str:
         return self.title
@@ -47,7 +47,7 @@ class Post(models.Model):
     # view_count = models.IntegerField(default=0)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     thumbnail = models.ImageField(blank=True, null=True)
-    categories = models.ManyToManyField(Category)
+    categories = models.ManyToManyField(Category, blank=True)
     featured = models.BooleanField(default=False)
     previous_post = models.ForeignKey('self', related_name='previous',
                     on_delete=models.SET_NULL, blank=True, null=True)
