@@ -138,9 +138,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-STATICFILES_DIRS = [BASE_DIR / 'static_files']
+STATICFILES_DIRS = [BASE_DIR / 'static']
 VENV_PATH = CORE_DIR
-STATIC_ROOT = VENV_PATH / 'static_root'
+STATIC_ROOT = VENV_PATH / 'staticfiles'
 MEDIA_ROOT = VENV_PATH / 'media_root'
 
 # Default primary key field type

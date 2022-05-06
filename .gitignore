@@ -1,6 +1,8 @@
 ### Django ###
 static_root/
 media_root/
+staticfiles/
+
 
 *.log
 **/*.pyc
