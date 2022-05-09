@@ -10,6 +10,10 @@ from posts.models import Post, Author, PostView
 from marketing.models import Signup
 
 
+def contact(request):
+    context = {}
+    return render(request, 'blog/typewriter.html', context)
+
 def get_author(user):
     qs = Author.objects.filter(user=user)
     if qs.exists():
