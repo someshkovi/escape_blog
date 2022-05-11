@@ -28,7 +28,7 @@
                     {% if request.user == post.author.user %}
                       <div>
                         <a href="{% url 'post-update' id=post.id %}">
-                          <img src="{% static 'icons/icons8-edit-2.svg '%}">
+                          <img src="{% static 'icons/icons8-edit-2.svg' %}">
                         </a>
                         <a href="{% url 'post-delete' id=post.id %}"><img src="{% static 'icons/icons8-delete.svg' %}"></a>
                         {% comment %} <a href="{% url 'post-update' id=post.id %}" class="btn btn-primary btn-round shadow-lg">Update</a> {% endcomment %}
