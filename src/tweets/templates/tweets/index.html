@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block title %} Tweets {% endblock %}
   {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'tweets/css/style.css' %}" />
   {% endblock stylesheets %}
@@ -13,48 +14,52 @@
       <main class="posts-listing col-lg-8">
         <div class="contatiner">
           <!-- tweetbox starts -->
-          <div class="tweetBox">
-            <form action="" method="post" enctype="multipart/form-data">
-              {% csrf_token %}
-              <div class="tweetbox__input">
-                <img src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png" alt=""/>
-                {{ form.body }}
-                {% comment %} <input type="text" name="body" id="body" value={{ form.body }} placeholder="What's happening?"/> {% endcomment %}
+          {% if request.user.is_authenticated %}
+            <div class="tweetBox">
+              <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="tweetbox__input">
+                  <img src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png" alt=""/>
+                  {{ form.body }}
+                  {% comment %} <input type="text" name="body" id="body" value={{ form.body }} placeholder="What's happening?"/> {% endcomment %}
+                  {% comment %} {{ form.thumbnail }} {% endcomment %}
+
+                  {% comment %} <div class="custom-file">
+                    {{ form.thumbnail }}
+                    <label class="custom-file-label" for="id_thumbnail">Choose file</label>
+                  </div>
+                </div> {% endcomment %}
                 {% comment %} {{ form.thumbnail }} {% endcomment %}
 
-                {% comment %} <div class="custom-file">
-                  {{ form.thumbnail }}
-                  <label class="custom-file-label" for="id_thumbnail">Choose file</label>
-                </div>
-              </div> {% endcomment %}
-              {% comment %} {{ form.thumbnail }} {% endcomment %}
 
-
-{% comment %} 
-              <div class="form-row field-thumbnail">
-                <div>
-                  <label for="id_thumbnail">Thumbnail:</label>
-                    <input type="file" name="thumbnail" accept="image/*" id="id_thumbnail">
-                </div>
-              </div> {% endcomment %}
+                {% comment %} 
+                      <div class="form-row field-thumbnail">
+                        <div>
+                          <label for="id_thumbnail">Thumbnail:</label>
+                            <input type="file" name="thumbnail" accept="image/*" id="id_thumbnail">
+                        </div>
+                      </div> {% endcomment %}
 
 
 
 
 
 
-              {% comment %} <div class="fieldWrapper">
-                {{ form.message.errors }}
-                <button><label for="{{ form.thumbnail }}"> image</label></button>
+                      {% comment %} <div class="fieldWrapper">
+                        {{ form.message.errors }}
+                        <button><label for="{{ form.thumbnail }}"> image</label></button>
 
-                {{ form.message }}
-              </div> {% endcomment %}
+                        {{ form.message }}
+                      </div> {% endcomment %}
 
 
-              <button type="submit" class="tweetBox__tweetButton">Tweet</button>
-            
-            </form>
-          </div>
+                <button type="submit" class="tweetBox__tweetButton">Tweet</button>
+              
+              </form>
+            </div>
+          {% else %}
+          <div class="contatiner"><a href='/accounts/login'>Login for better experience</a></div>
+          {% endif %}
           <!-- tweetbox ends -->
           <!-- post starts -->
           {% for post in queryset %}

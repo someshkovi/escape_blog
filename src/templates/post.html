@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block title %} {{ post.title }} {% endblock %}
 {% block content %}
 
 <style>
@@ -51,6 +52,7 @@
                     <div class="comments meta-last"><i class="icon-comment"></i>{{ post.comment_count }}</div>
                   </div>
                 </div>
+                <div>{{ post.overview }}</div>
                 <div class="post-body">
                   {{ post.content | safe }}
                 </div>
