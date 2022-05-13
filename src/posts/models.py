@@ -13,7 +13,11 @@ class PostView(models.Model):
     post = models.ForeignKey('Post', on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return f'{self.user.username} comment on {self.post.title}'
+        return f'{self.user.username} viewed {self.post.title}'
+
+class PostLike(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey('POST', on_delete=models.CASCADE)
 
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -111,3 +115,7 @@ class Post(models.Model):
     @property
     def view_count(self):
         return PostView.objects.filter(post=self).count()
+
+    @property
+    def like_count(self):
+        return PostLike.objects.filter(post=self).count()
