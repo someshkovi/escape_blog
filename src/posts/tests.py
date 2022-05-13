@@ -2,7 +2,8 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.db.models import Max
 
-from .models import Post, Author
+from posts.models import Post
+from accounts.models import Subscriber
 
 class PostModelTests(TestCase):
     def setUp(self):
@@ -10,7 +11,7 @@ class PostModelTests(TestCase):
         # user.is_superuser=True
         # user.is_staff=True
         user.save()
-        a1 = Author.objects.create(user=user)
+        a1 = Subscriber.objects.create(user=user)
         a1.save()
 
         p1 = Post.objects.create(

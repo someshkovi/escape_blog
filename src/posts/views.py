@@ -6,7 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.http import HttpResponseRedirect
 from posts.forms import CommentForm, PostForm
-from posts.models import Post, Author, PostView
+from posts.models import Post, PostView
+from accounts.models import Subscriber
 from marketing.models import Signup
 
 
@@ -15,7 +16,7 @@ def contact(request):
     return render(request, 'blog/typewriter.html', context)
 
 def get_author(user):
-    qs = Author.objects.filter(user=user)
+    qs = Subscriber.objects.filter(user=user)
     if qs.exists():
         return qs[0]
     return None
@@ -111,7 +112,7 @@ def post_create(request):
     form = PostForm(request.POST or None, request.FILES or None)
     author = get_author(request.user)
     if author is None:
-        Author.objects.create(user=request.user)
+        Subscriber.objects.create(user=request.user)
         author = get_author(request.user)
     if request.method == "POST":
         if form.is_valid():

@@ -4,6 +4,5 @@
 Add tasks
 Add tags
 Add like counter
-Add read time for blog
 Add portfolio
 Unify accounts

@@ -6,6 +6,8 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from tinymce import HTMLField
 
+from accounts.models import Subscriber
+
 User = get_user_model()
 
 class PostView(models.Model):
@@ -18,14 +20,6 @@ class PostView(models.Model):
 class PostLike(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey('POST', on_delete=models.CASCADE)
-
-class Author(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(upload_to='profile_pic', 
-                        blank=True, null=True)
-
-    def __str__(self) -> str:
-        return self.user.username
 
 class Category(models.Model):
     title = models.CharField(max_length=20, unique=True)
@@ -49,15 +43,16 @@ class Post(models.Model):
     content = HTMLField()
     # comment_count = models.IntegerField(default=0)
     # view_count = models.IntegerField(default=0)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    author = models.ForeignKey(Subscriber, on_delete=models.CASCADE)
     thumbnail = models.ImageField(blank=True, null=True)
     categories = models.ManyToManyField(Category, blank=True)
     featured = models.BooleanField(default=False)
+    read_time = models.IntegerField(help_text='Read time in minutes', default=10, editable=True)
     previous_post = models.ForeignKey('self', related_name='previous',
                     on_delete=models.SET_NULL, blank=True, null=True)
     next_post = models.ForeignKey('self', related_name='next',
                  on_delete=models.SET_NULL, blank=True, null=True)
-    publish = models.BooleanField(default=True)
+    publish = models.BooleanField(default=True, editable=True)
     created_date = models.DateTimeField(default=timezone.now, editable=False)
     pub_date = models.DateTimeField(blank=True, null=True, editable=False)
 
