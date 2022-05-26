@@ -14,6 +14,9 @@ python-dotenv = "*"
 django-debug-toolbar = "*"
 djangorestframework = "*"
 django-rest-auth = "*"
+beautifulsoup4 = "*"
+lxml = "*"
+pandas = "*"
 
 [dev-packages]
 

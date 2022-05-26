@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<form method='post'>
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary btn-lg btn-block" name="run_script">Update all prices</button>
+</form>
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Availabity Message</th>
+        <th scope="col">Update Data</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+            <tr>
+                <th scope="row">{{ product.id }}</th>
+                <td><a href={{product.url}}>{{ product.name }}</a></td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.availabity_messsage }}</td>
+                <td>
+                    <form method = "post">
+                        {% csrf_token %}
+                        <input type="hidden" name="proudctId" value="{{ product.id }}" />
+                        <button type="submit" class="btn btn-primary" name="update_product_info_by_id">update data</button>
+                    </form></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
