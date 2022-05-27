@@ -7,12 +7,13 @@
     <div class="row">
         <button type="submit" class="btn btn-primary btn-lg btn-block">Update Data for all products</button>
         {% comment %} <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Add new products for tracking</a> {% endcomment %}
-        <button onclick="myFunction()" class="btn btn-primary btn-lg active" >Add new products for tracking</button>
+        <button onclick="myFunction()" class="btn btn-primary active" id="addbutton">Add new products for tracking</button>
         <div id="productaddform" style="display: none;">
           <form action="" method="post" enctype="multipart/form-data">
               {% csrf_token %}
               {{ form|crispy }}
               <button type="submit" class="button">Submit</button>
+              <button onclick="myFunction()" type="submit" class="button">Cancel</button>
           </form>
           {% comment %} <buttton id="btn">Add product</button> {% endcomment %}
         </div>
@@ -71,10 +72,13 @@
 <script>
 function myFunction() {
   var x = document.getElementById("productaddform");
+  var y = document.getElementById("addbutton")
   if (x.style.display === "none") {
     x.style.display = "block";
+    y.style.display = "none";
   } else {
     x.style.display = "none";
+    y.style.display = "block";
   }
 }
 </script>

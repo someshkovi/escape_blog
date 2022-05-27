@@ -1,6 +1,12 @@
 import os
+import environ
 from pathlib import Path
 from django.contrib.messages import constants as messages
+
+env = environ.Env(
+    # set casting, default value
+    # DEBUG=(bool, True)
+)
 
 MESSAGE_TAGS = {
         messages.DEBUG: 'alert-secondary',
@@ -14,18 +20,28 @@ MESSAGE_TAGS = {
 BASE_DIR = Path(__file__).resolve().parent.parent
 CORE_DIR = Path(__file__).resolve().parent.parent.parent
 
-
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(CORE_DIR, '.env'))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', 'test-secret-key')
-
+if 'SECRET_KEY' in env:
+    SECRET_KEY = env('SECRET_KEY')
+else:
+    SECRET_KEY='test-secret-key'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('SECRET_KEY', True)
-
-ALLOWED_HOSTS = ['localhost','.pythonanywhere.com', '152.67.161.19', '152.67.165.118']
-
+if 'DEBUG' in env:
+    DEBUG = (env('DEBUG')=='True')
+else:
+    DEBUG = True
+if 'ADVANCED_DEBUG' in env:
+    ADVANCED_DEBUG = (env('ADVANCED_DEBUG')=='True')
+else:
+    ADVANCED_DEBUG = False
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+if 'ALLOWED_HOSTS' in env:
+    ALLOWED_HOSTS+=env('ALLOWED_HOSTS')
 
 # Application definition
 
@@ -197,7 +213,7 @@ SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 
 
-if DEBUG:
+if ADVANCED_DEBUG:
     INSTALLED_APPS+=['debug_toolbar']
 
     MIDDLEWARE+=['debug_toolbar.middleware.DebugToolbarMiddleware']

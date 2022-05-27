@@ -10,13 +10,13 @@ django-tinymce4-lite = "*"
 django = "==3.2"
 django-crispy-forms = "*"
 django-allauth = "*"
-python-dotenv = "*"
 django-debug-toolbar = "*"
 djangorestframework = "*"
 django-rest-auth = "*"
 beautifulsoup4 = "*"
 lxml = "*"
 pandas = "*"
+django-environ = "*"
 
 [dev-packages]
 
