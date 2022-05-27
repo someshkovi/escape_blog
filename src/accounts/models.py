@@ -7,14 +7,16 @@ from allauth.account.signals import user_logged_in, user_signed_up
 User = get_user_model()
 
 def user_logged_in_reciever(request, user, **kwargs):
-    print(f'{request} logged in request')
-    print(user)
+    # print(f'{request} logged in request')
+    # print(user)
+    pass
 
 user_logged_in.connect(user_logged_in_reciever, sender=User)
 
 def user_signed_up_reciever(request, user, **kwargs):
-    print(f'{request} signed up request')
-    print(user)
+    # print(f'{request} signed up request')
+    # print(user)
+    pass
 
 user_signed_up.connect(user_signed_up_reciever, sender=User)
 
