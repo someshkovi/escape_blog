@@ -41,7 +41,7 @@ else:
     ADVANCED_DEBUG = False
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 if 'ALLOWED_HOSTS' in env:
-    ALLOWED_HOSTS+=env('ALLOWED_HOSTS')
+    ALLOWED_HOSTS+=env('ALLOWED_HOSTS').split(' ')
 
 # Application definition
 
