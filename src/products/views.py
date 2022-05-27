@@ -4,6 +4,7 @@ import json
 from django.http import Http404
 from rest_framework.views import APIView
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -12,9 +13,10 @@ from rest_framework import status
 
 from .serializers import ProductSerializer
 from .models import Product
+from .forms import ProductForm
 
 @api_view(["GET", "POST"])
-def index(request, pk=None, *args, **kwargs):
+def api_index(request, pk=None, *args, **kwargs):
     if request.method == 'POST' and 'run_script' in request.POST:
 
         # import function to run
@@ -173,15 +175,21 @@ class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
+def index(request):
+    products = Product.objects.order_by('id')
 
-from django.contrib.auth.models import User
-from .serializers import UserSerializer
+    form = ProductForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.instance.author = request.user
+            form.save()
+            return redirect('products:index')
+    else:
+        form = ProductForm
+        # return HttpResponseRedirect('/')
 
-class UserList(generics.ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-
-class UserDetail(generics.RetrieveAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    context = {
+        'products' : products,
+        'form' : form
+    }
+    return render(request, 'products/index.html', context)

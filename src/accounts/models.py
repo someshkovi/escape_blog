@@ -1,4 +1,5 @@
 import imp
+import re
 from django.db import models
 from django.contrib.auth import get_user_model
 from allauth.account.signals import user_logged_in, user_signed_up
@@ -18,7 +19,7 @@ def user_signed_up_reciever(request, user, **kwargs):
 user_signed_up.connect(user_signed_up_reciever, sender=User)
 
 class Subscriber(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='subscriber')
     profile_picture = models.ImageField(upload_to='profile_pic', 
                         blank=True, null=True)
 

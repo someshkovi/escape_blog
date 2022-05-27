@@ -29,7 +29,7 @@ class Websites(models.Model):
 class Product(models.Model):
     url = models.CharField(max_length=250, null=True, blank=True)
     site = models.ForeignKey(Websites, on_delete=models.SET_NULL, blank=True, null=True)
-    name = models.CharField(max_length=100, null=True, blank=True)
+    name = models.CharField(max_length=100)
     category = models.ForeignKey(ProductCategory, on_delete=models.SET_NULL, blank=True, null=True)
     price = models.IntegerField(null=True, blank=True)
     max_price = models.IntegerField(null=True, blank=True)

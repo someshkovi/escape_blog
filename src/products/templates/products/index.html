@@ -1,34 +1,81 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %} Tracking {% endblock %}
+{% block content %}
+<div class="container">
+    <div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Update Data for all products</button>
+        {% comment %} <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Add new products for tracking</a> {% endcomment %}
+        <button onclick="myFunction()" class="btn btn-primary btn-lg active" >Add new products for tracking</button>
+        <div id="productaddform" style="display: none;">
+          <form action="" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <button type="submit" class="button">Submit</button>
+          </form>
+          {% comment %} <buttton id="btn">Add product</button> {% endcomment %}
+        </div>
+    </div>
+    <div>
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Lowest Price</th>
+                <th scope="col">Target Price</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Availabity Message</th>
+                {% comment %} <th scope="col">Update Data</th> {% endcomment %}
+              </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                    <tr>
+                        <th scope="row">{{ product.id }}</th>
+                        <td><a href={{product.url}}>{{ product.name }}</a></td>
+                        {% if product.price %}
+                          <td>{{ product.price }}</td>
+                        {% else %}
+                        <td></td>
+                        {% endif %}
+                        {% if product.min_price %}
+                          <td>{{ product.min_price }}</td>
+                        {% else %}
+                          <td></td>
+                        {% endif %}
+                        {% if product.target_price %}
+                          <td>{{ product.target_price }}</td>
+                        {% else %}
+                        <td></td>
+                        {% endif %}
+                        {% if product.availabity_messsage %}
+                          <td>{{ product.availabity_messsage }}</td>
+                        {% else %}
+                        <td></td>
+                        {% endif %}
+                        {% if product.rating %}
+                          <td>{{ product.rating }}</td>
+                        {% else %}
+                          <td></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 
-<form method='post'>
-    {% csrf_token %}
-    <button type="submit" class="btn btn-primary btn-lg btn-block" name="run_script">Update all prices</button>
-</form>
-
-<table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Price</th>
-        <th scope="col">Availabity Message</th>
-        <th scope="col">Update Data</th>
-      </tr>
-    </thead>
-    <tbody>
-        {% for product in products %}
-            <tr>
-                <th scope="row">{{ product.id }}</th>
-                <td><a href={{product.url}}>{{ product.name }}</a></td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.availabity_messsage }}</td>
-                <td>
-                    <form method = "post">
-                        {% csrf_token %}
-                        <input type="hidden" name="proudctId" value="{{ product.id }}" />
-                        <button type="submit" class="btn btn-primary" name="update_product_info_by_id">update data</button>
-                    </form></td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<script>
+function myFunction() {
+  var x = document.getElementById("productaddform");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+{% endblock content %}
