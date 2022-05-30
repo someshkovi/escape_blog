@@ -52,7 +52,9 @@
                       {% for cat in obj.categories.all %}
                         <a href="#">{{ cat.title }}</a>
                       {% endfor %}
-                    </div><a href="{{ obj.get_absolute_url }}">
+                    </div>
+                    <div>{{ obj.read_time }} MINUTE READ</div>
+                    <a href="{{ obj.get_absolute_url }}">
                       <h2 class="h4">{{ obj.title }}</h2></a>
                   </header>
                   <p>{{ obj.overview }}</p>
@@ -109,6 +111,7 @@
                         <a href="#">{{ cat }}</a>
                       {% endfor %}
                     </div>
+                    <div>{{ obj.read_time }} MIN</div>
                 </div><a href="{{ obj.get_absolute_url }}">
                   <h3 class="h4">{{ obj.title}}</h3></a>
                 <p class="text-muted">{{ obj.overview }}</p>

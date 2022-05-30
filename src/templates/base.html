@@ -11,7 +11,7 @@
         {% include 'messages.html' %}
         {% block content %}
         {% endblock content %}
-        {% include "footer.html" %}
+        {% comment %} {% include "footer.html" %} {% endcomment %}
         {% include "scripts.html" %}
         <!-- Specific Page JS goes HERE  -->
         {% block javascripts %}{% endblock javascripts %}

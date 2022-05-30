@@ -52,15 +52,15 @@
                         {% else %}
                         <td></td>
                         {% endif %}
-                        {% if product.availabity_messsage %}
-                          <td>{{ product.availabity_messsage }}</td>
-                        {% else %}
-                        <td></td>
-                        {% endif %}
                         {% if product.rating %}
                           <td>{{ product.rating }}</td>
                         {% else %}
                           <td></td>
+                        {% endif %}
+                        {% if product.availabity_messsage %}
+                          <td>{{ product.availabity_messsage }}</td>
+                        {% else %}
+                        <td></td>
                         {% endif %}
                     </tr>
                 {% endfor %}

@@ -11,7 +11,7 @@ class ProductCategory(models.Model):
         unique_together =('category', 'sub_category',)
 
     def __str__(self) -> str:
-        return f'{self.category}_{self.sub_category}'
+        return f'{self.category} > {self.sub_category}'
 
 class Websites(models.Model):
     amazon_in = 'amazon.in'

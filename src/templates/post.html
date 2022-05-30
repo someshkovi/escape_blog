@@ -25,6 +25,7 @@
                       <a href="#">{{ cat }}</a>
                     {% endfor %}
                   </div>
+                  <div>{{ post.read_time }} MINUTE READ</div>
                   {% if request.user.is_authenticated %}
                     {% if request.user == post.author.user %}
                       <div>

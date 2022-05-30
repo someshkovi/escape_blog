@@ -32,6 +32,7 @@
                         <a href="#">{{ cat }}</a>
                       {% endfor %}
                     </div>
+                    <div>{{ post.read_time }} MINUTE READ</div>
                   </div><a href="{{ post.get_absolute_url }}">
                     <h3 class="h4">{{ post.title }}</h3></a>
                   <p class="text-muted">{{ post.overview }}</p>
@@ -45,6 +46,7 @@
                       <div class="title"><span>{{ post.author }}</span></div>
                     </a>
                     <div class="date"><i class="icon-clock"></i> {{ post.pub_date|timesince }} ago</div>
+                    {% comment %} <div class="date">{{ post.read_time }} MIN</div> {% endcomment %}
                     <div class="comments meta-last"><i class="icon-comment"></i>{{ post.comment_count }}</div>
                   </footer>
                 </div>
