@@ -18,6 +18,13 @@ if 'hostname' in env and 'port' in env:
 else:
     endpoint = 'http://127.0.0.1:8000/api/v1/products/'
 
+if 'username' in env:
+    username = env('username')
+    password = env('password')
+else:
+    username = 's'
+    password = 's'
+
 response = requests.get(endpoint)
 
 json_respone = response.json()
@@ -36,4 +43,4 @@ for item in json_respone:
                 'price': price,
                 'availabity_messsage':availabity_messsage,
             }
-            put_response = put_product_data(url, data, 's', 's')
+            put_response = put_product_data(url, data, username, password)
