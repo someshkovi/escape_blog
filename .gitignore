@@ -2,7 +2,7 @@
 static_root/
 media_root/
 staticfiles/
-
+static/
 
 *.log
 **/*.pyc
