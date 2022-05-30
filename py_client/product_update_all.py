@@ -25,7 +25,7 @@ else:
     username = 's'
     password = 's'
 
-response = requests.get(endpoint)
+response = requests.request("GET",endpoint, headers={}, data={})
 
 json_respone = response.json()
 for item in json_respone:
@@ -39,8 +39,8 @@ for item in json_respone:
             if scrapper_respone.get('price') is not None:
                 price = scrapper_respone.get('price')
                 availabity_messsage = scrapper_respone.get('availabity_messsage')
-            data = {
-                'price': price,
-                'availabity_messsage':availabity_messsage,
-            }
-            put_response = put_product_data(url, data, username, password)
+                data = {
+                    'price': price,
+                    'availabity_messsage':availabity_messsage,
+                }
+                put_response = put_product_data(url, data, username, password)
