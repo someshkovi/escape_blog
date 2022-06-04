@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models import UniqueConstraint
 from django.db.models.functions import Lower
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 class ProductCategory(models.Model):
     category = models.CharField(max_length=50, unique=True)
@@ -52,5 +53,19 @@ class Product(models.Model):
         # constraints = [
         #     UniqueConstraint(fields=[name, 'url'], name='name_url_unique')
         # ]
+    def __str__(self) -> str:
+        return f'{self.name}'
+
+
+class ProductSearchResult(models.Model):
+    search_keyword = models.CharField(max_length=35)
+    site = models.ForeignKey(Websites, on_delete=models.SET_NULL, blank=True, null=True)
+    name = models.CharField(max_length=250)
+    category = models.ForeignKey(ProductCategory, on_delete=models.SET_NULL, blank=True, null=True)
+    currency = models.CharField(max_length=6, default='₹')
+    rating = models.DecimalField(decimal_places=2, max_digits=4,null=True, blank=True)
+    price = models.IntegerField(null=True, blank=True)
+    last_updated = models.DateTimeField(default=timezone.now)
+
     def __str__(self) -> str:
         return f'{self.name}'

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from products.models import Product, Websites, ProductCategory
+from products.models import Product, Websites, ProductCategory, ProductSearchResult
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
@@ -12,3 +12,10 @@ class ProductAdmin(admin.ModelAdmin):
 admin.site.register(Websites)
 
 admin.site.register(ProductCategory)
+
+@admin.register(ProductSearchResult)
+class ProductSearchResultAdmin(admin.ModelAdmin):
+    list_display = ('name', 'site', 'price', 'category', 'rating')
+    ordering = ('rating', 'name')
+    list_filter = ('search_keyword',)
+    search_fields = ('name',)
