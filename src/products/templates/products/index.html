@@ -18,6 +18,7 @@
           {% comment %} <buttton id="btn">Add product</button> {% endcomment %}
         </div>
     </div>
+    
     <div class="table-responsive row">
         <table class="table table-striped">
             <thead>
@@ -66,6 +67,40 @@
                 {% endfor %}
             </tbody>
         </table>
+    </div>
+    <div clas="row">
+
+      {% for item in products_search_result_keywords %}
+        <h2>{{ item }}</h2>
+      {% endfor %}
+      <div class="table-responsive-md">
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Rating</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for product in products_search_result %}
+                    <tr>
+                        <td>{{ product.name }}</a></td>
+                        {% if product.price %}
+                          <td>{{ product.price }}</td>
+                        {% else %}
+                        <td></td>
+                        {% endif %}
+                        {% if product.rating %}
+                          <td>{{ product.rating }}</td>
+                        {% else %}
+                          <td></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      </div>
     </div>
 </div>
 

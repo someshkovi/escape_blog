@@ -67,6 +67,7 @@ INSTALLED_APPS = [
 
     'tinymce',
     'crispy_forms',
+    'import_export',
 
     'django.contrib.sites',
 

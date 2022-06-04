@@ -17,6 +17,7 @@ beautifulsoup4 = "*"
 lxml = "*"
 pandas = "*"
 django-environ = "*"
+django-import-export = "*"
 
 [dev-packages]
 

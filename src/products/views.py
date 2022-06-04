@@ -12,7 +12,7 @@ from rest_framework import generics
 from rest_framework import status
 
 from .serializers import ProductSerializer
-from .models import Product
+from .models import Product, ProductSearchResult
 from .forms import ProductForm
 
 @api_view(["GET", "POST"])
@@ -177,7 +177,8 @@ class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
 
 def index(request):
     products = Product.objects.order_by('id')
-
+    products_search_result = ProductSearchResult.objects.all()
+    products_search_result_keywords = products_search_result.values_list('search_keyword', flat=True).distinct()
     form = ProductForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
@@ -190,6 +191,8 @@ def index(request):
 
     context = {
         'products' : products,
-        'form' : form
+        'form' : form,
+        'products_search_result': products_search_result,
+        'products_search_result_keywords':products_search_result_keywords
     }
     return render(request, 'products/index.html', context)
