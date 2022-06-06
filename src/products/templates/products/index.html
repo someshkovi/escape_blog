@@ -18,90 +18,81 @@
           {% comment %} <buttton id="btn">Add product</button> {% endcomment %}
         </div>
     </div>
-    
-    <div class="table-responsive row">
-        <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Price</th>
-                <th scope="col">Lowest Price</th>
-                <th scope="col">Target Price</th>
-                <th scope="col">Rating</th>
-                <th scope="col">Availabity Message</th>
-                {% comment %} <th scope="col">Update Data</th> {% endcomment %}
-              </tr>
-            </thead>
-            <tbody>
-                {% for product in products %}
-                    <tr>
-                        <th scope="row">{{ product.id }}</th>
-                        <td><a href={{product.url}}>{{ product.name }}</a></td>
-                        {% if product.price %}
-                          <td>{{ product.price }}</td>
-                        {% else %}
-                        <td></td>
-                        {% endif %}
-                        {% if product.min_price %}
-                          <td>{{ product.min_price }}</td>
-                        {% else %}
+    <div>
+      <div class="table-responsive row">
+          <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Lowest Price</th>
+                  <th scope="col">Target Price</th>
+                  <th scope="col">Rating</th>
+                  <th scope="col">Availabity Message</th>
+                  {% comment %} <th scope="col">Update Data</th> {% endcomment %}
+                </tr>
+              </thead>
+              <tbody>
+                  {% for product in products %}
+                      <tr>
+                          <th scope="row">{{ product.id }}</th>
+                          <td><a href={{product.url}}>{{ product.name }}</a></td>
+                          {% if product.price %}
+                            <td>{{ product.price }}</td>
+                          {% else %}
                           <td></td>
-                        {% endif %}
-                        {% if product.target_price %}
-                          <td>{{ product.target_price }}</td>
-                        {% else %}
-                        <td></td>
-                        {% endif %}
-                        {% if product.rating %}
-                          <td>{{ product.rating }}</td>
-                        {% else %}
+                          {% endif %}
+                          {% if product.min_price %}
+                            <td>{{ product.min_price }}</td>
+                          {% else %}
+                            <td></td>
+                          {% endif %}
+                          {% if product.target_price %}
+                            <td>{{ product.target_price }}</td>
+                          {% else %}
                           <td></td>
-                        {% endif %}
-                        {% if product.availabity_messsage %}
-                          <td>{{ product.availabity_messsage }}</td>
-                        {% else %}
-                        <td></td>
-                        {% endif %}
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <div clas="row">
-
-      {% for item in products_search_result_keywords %}
-        <h2>{{ item }}</h2>
-      {% endfor %}
-      <div class="table-responsive-md">
-        <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Price</th>
-                <th scope="col">Rating</th>
-              </tr>
-            </thead>
-            <tbody>
-                {% for product in products_search_result %}
-                    <tr>
-                        <td>{{ product.name }}</a></td>
-                        {% if product.price %}
-                          <td>{{ product.price }}</td>
-                        {% else %}
-                        <td></td>
-                        {% endif %}
-                        {% if product.rating %}
-                          <td>{{ product.rating }}</td>
-                        {% else %}
+                          {% endif %}
+                          {% if product.rating %}
+                            <td>{{ product.rating }}</td>
+                          {% else %}
+                            <td></td>
+                          {% endif %}
+                          {% if product.availabity_messsage %}
+                            <td>{{ product.availabity_messsage }}</td>
+                          {% else %}
                           <td></td>
-                        {% endif %}
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                          {% endif %}
+                      </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
       </div>
     </div>
+
+    <div class="row">
+      <h3>View Products</h3>
+    </div>
+    <div class="row">
+      <div clas="col-4">
+        <h3>by categories</h3>
+        <ul>
+          {% for item in categories %}
+            <li><a href = '/products/category:{{item.id}}'>{{ item }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="col-1"></div>
+      <div clas="col-4">
+        <h3>by search results</h3>
+        <ul>
+          {% for item in products_search_result_keywords %}
+            <li><a href = '/products/search:{{item}}'>{{ item }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
 </div>
 
 <script>

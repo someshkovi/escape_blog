@@ -9,6 +9,8 @@ def get_amazon_results_by_search(search_parameter, no_of_pages=20):
     results = []
     for page in range(no_of_pages):
         link=f'https://www.amazon.in/s?k={search_parameter}&page={page}'
+
+        print(link, '\n')
         page = requests.get(link, verify=False)
 
         soup = bs(page.content, 'html.parser')
@@ -33,7 +35,8 @@ def get_amazon_results_by_search(search_parameter, no_of_pages=20):
     return results
 
 def main():
-    results = get_amazon_results_by_search('laptop', 20)
+    query = input('Enter the search patameter: \n')
+    results = get_amazon_results_by_search(query, 40)
     df = pd.DataFrame(results)
     df = df.loc[:,~df.columns.duplicated()]
     df.to_csv('info.csv', index=False, encoding='utf-8')
@@ -44,3 +47,6 @@ class SearchResult():
     price:int
     currency:str
     rating:float
+
+if __name__=='__main__':
+    main()

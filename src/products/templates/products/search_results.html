@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Tracking {% endblock %}
+{% block content %}
+<div class="table-responsive-md">
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for product in products_search_result %}
+                <tr>
+                    <td>{{ product.name }}</a></td>
+                    {% if product.price %}
+                      <td>{{ product.price }}</td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
+                    {% if product.rating %}
+                      <td>{{ product.rating }}</td>
+                    {% else %}
+                      <td></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+  </div>
+{% endblock content %}

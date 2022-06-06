@@ -12,8 +12,13 @@ from rest_framework import generics
 from rest_framework import status
 
 from .serializers import ProductSerializer
-from .models import Product, ProductSearchResult
+from .models import Product, ProductSearchResult, ProductCategory
 from .forms import ProductForm
+
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 @api_view(["GET", "POST"])
 def api_index(request, pk=None, *args, **kwargs):
@@ -179,6 +184,7 @@ def index(request):
     products = Product.objects.order_by('id')
     products_search_result = ProductSearchResult.objects.all()
     products_search_result_keywords = products_search_result.values_list('search_keyword', flat=True).distinct()
+    categories = ProductCategory.objects.order_by('category')
     form = ProductForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
@@ -191,8 +197,24 @@ def index(request):
 
     context = {
         'products' : products,
+        'categories':categories,
         'form' : form,
         'products_search_result': products_search_result,
         'products_search_result_keywords':products_search_result_keywords
     }
     return render(request, 'products/index.html', context)
+
+def search_result_by_category(request, category):
+    products_search_result = ProductSearchResult.objects.filter(category=category)
+    context = {
+        'products_search_result':products_search_result,
+    }
+    return render(request, 'products/search_results.html', context)
+
+def search_result_by_products_search_result_keywords(request, search_keyword):
+
+    products_search_result = ProductSearchResult.objects.filter(search_keyword=search_keyword)
+    context = {
+        'products_search_result':products_search_result,
+    }
+    return render(request, 'products/search_results.html', context)
