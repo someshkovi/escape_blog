@@ -1,7 +1,7 @@
 from django.contrib import admin
 from import_export.admin import ImportExportMixin
 
-from products.models import Product, Websites, ProductCategory, ProductSearchResult
+from products.models import Product, Websites, ProductCategory, ProductSearchResult, ProductPriceChange
 
 @admin.register(Product)
 class ProductAdmin(ImportExportMixin, admin.ModelAdmin):
@@ -20,3 +20,9 @@ class ProductSearchResultAdmin(ImportExportMixin, admin.ModelAdmin):
     ordering = ('-rating', 'name')
     list_filter = ('search_keyword',)
     search_fields = ('name',)
+
+@admin.register(ProductPriceChange)
+class ProductPriceChangeAdmin(admin.ModelAdmin):
+    list_display = ('product', 'date')
+    ordering = ('-date', 'product')
+    list_filter = ('date', 'product')

@@ -69,3 +69,14 @@ class ProductSearchResult(models.Model):
 
     def __str__(self) -> str:
         return f'{self.name}'
+
+class ProductPriceChange(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True, editable=True)
+    price = models.IntegerField()
+
+    class Meta:
+        unique_together = ['product', 'date']
+
+    def __str__(self) -> str:
+        return f'{self.date} > {self.product.name} '
