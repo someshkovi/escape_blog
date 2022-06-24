@@ -59,7 +59,6 @@ INSTALLED_APPS = [
     'api',
     'accounts',
     'todo',
-    'products',
 
     'rest_framework',
     'rest_framework.authtoken',
@@ -161,7 +160,7 @@ MEDIA_URL = '/media/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 VENV_PATH = CORE_DIR
 STATIC_ROOT = VENV_PATH / 'static'
-MEDIA_ROOT = VENV_PATH / 'media_root'
+MEDIA_ROOT = VENV_PATH / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

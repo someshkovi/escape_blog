@@ -38,9 +38,9 @@ for item in json_respone:
             scrapper_respone = store_update_price(product_url)
             if scrapper_respone.get('price') is not None:
                 price = scrapper_respone.get('price')
-                availabity_messsage = scrapper_respone.get('availabity_messsage')
+                availability_message = scrapper_respone.get('availability_message')
                 data = {
                     'price': price,
-                    'availabity_messsage':availabity_messsage,
+                    'availability_message':availability_message,
                 }
                 put_response = put_product_data(url, data, username, password)

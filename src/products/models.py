@@ -45,8 +45,8 @@ class Product(models.Model):
     ]
     currency = models.CharField(max_length=6, choices=currency_choices, default=INR)
     rating = models.DecimalField(decimal_places=2, max_digits=4,null=True, blank=True)
-    availabity_messsage = models.CharField(max_length=100, null=True, blank=True)
-    availabity = models.BooleanField(default=True, null=True, blank=True)
+    availability_message = models.CharField(max_length=100, null=True, blank=True)
+    availability = models.BooleanField(default=True, null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='products', null=True, blank=True)
     class Meta:
         ordering = ['category','name']

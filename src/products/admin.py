@@ -5,9 +5,9 @@ from products.models import Product, Websites, ProductCategory, ProductSearchRes
 
 @admin.register(Product)
 class ProductAdmin(ImportExportMixin, admin.ModelAdmin):
-    list_display = ('name', 'site', 'price', 'target_price', 'availabity')
+    list_display = ('name', 'site', 'price', 'target_price', 'availability')
     ordering = ('site', 'name')
-    list_filter = ('availabity_messsage',)
+    list_filter = ('availability_message',)
     search_fields = ('url', 'name')
 
 admin.site.register(Websites)

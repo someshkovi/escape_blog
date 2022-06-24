@@ -18,6 +18,7 @@ lxml = "*"
 pandas = "*"
 django-environ = "*"
 django-import-export = "*"
+mysqlclient = "*"
 
 [dev-packages]
 

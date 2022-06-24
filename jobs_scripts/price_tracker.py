@@ -20,14 +20,14 @@ def get_amazon_product_info(url):
         return None, None, None, None
 
     try:
-        availabity_messsage = soup.select('#availability .a-color-success')[0].get_text().strip()
+        availability_message = soup.select('#availability .a-color-success')[0].get_text().strip()
         available=True
     except:
         try:
-            availabity_messsage = soup.select('#availability .a-color-price')[0].get_text().strip()
+            availability_message = soup.select('#availability .a-color-price')[0].get_text().strip()
             available=True
         except:
-            availabity_messsage = None
+            availability_message = None
             available=False
 
     try:
@@ -37,21 +37,21 @@ def get_amazon_product_info(url):
     except:
         return None, None, None, None
     
-    return title, price, available, availabity_messsage
+    return title, price, available, availability_message
 
 
 def store_update_price(product_url, service='amazon.in', limit=10_00_00_000):
     if service == 'amazon.in':
-        title, price, available ,availabity_messsage= get_amazon_product_info(product_url)
+        title, price, available ,availability_message= get_amazon_product_info(product_url)
     else:
-        title, price, available ,availabity_messsage = None, None, None, None
+        title, price, available ,availability_message = None, None, None, None
     if title is not None and price < limit and available:
         message = f'Price below limit : \n {title} \n Price: {price} \n {product_url} \n\n'
         json_response = json.dumps({
             'title':title,
             'price':price,
             'product_url':product_url,
-            'availabity_messsage':availabity_messsage,
+            'availability_message':availability_message,
         })
         print(message)
 

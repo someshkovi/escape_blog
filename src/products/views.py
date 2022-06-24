@@ -35,7 +35,7 @@ def api_index(request, pk=None, *args, **kwargs):
                 response = get_product_info(x.url)
                 if response:=json.loads(response):
                     price = response['price']
-                    availabity_messsage = response['availabity_messsage']
+                    availability_message = response['availability_message']
 
         return JsonResponse(data, safe=False)
 
@@ -54,9 +54,9 @@ def api_index(request, pk=None, *args, **kwargs):
             response = get_product_info(data.get('url',''))
             if response:=json.loads(response):
                 price = response['price']
-                availabity_messsage = response['availabity_messsage']
-                data['availabity_messsage']=availabity_messsage
-                data['availabity']=True
+                availability_message = response['availability_message']
+                data['availability_message']=availability_message
+                data['availability']=True
             if min_price:=data.get('min_price') is None:
                 min_price = price
             min_price = min(min_price, price)

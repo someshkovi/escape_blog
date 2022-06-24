@@ -27,3 +27,10 @@ class Subscriber(models.Model):
 
     def __str__(self) -> str:
         return self.user.username
+
+class Author(models.Model):
+    salutation = models.CharField(max_length=10)
+    name = models.CharField(max_length=200)
+    email = models.EmailField()
+    headshot = models.ImageField(upload_to='author_headshots', blank=True, null=True)
+    last_accessed = models.DateTimeField()

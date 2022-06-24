@@ -11,7 +11,7 @@
         <th scope="col">#</th>
         <th scope="col">Name</th>
         <th scope="col">Price</th>
-        <th scope="col">Availabity Message</th>
+        <th scope="col">availability Message</th>
         <th scope="col">Update Data</th>
       </tr>
     </thead>
@@ -21,7 +21,7 @@
                 <th scope="row">{{ product.id }}</th>
                 <td><a href={{product.url}}>{{ product.name }}</a></td>
                 <td>{{ product.price }}</td>
-                <td>{{ product.availabity_messsage }}</td>
+                <td>{{ product.availability_message }}</td>
                 <td>
                     <form method = "post">
                         {% csrf_token %}
