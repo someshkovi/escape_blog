@@ -51,10 +51,13 @@ def index(request):
     }
     if request.method == "POST":
         email = request.POST['email']
-        new_signup = Signup()
-        new_signup.email = email
-        new_signup.save()
-        messages.success(request, f"{email} successfully subscribed")
+        signup, created = Signup.objects.get_or_create(email=email)
+        # new_signup.email = email
+        # new_signup.save()
+        if created:
+            messages.success(request, f"{email} successfully subscribed")
+        else:
+            messages.warning(request, f"{email} already subscribed")
         return HttpResponseRedirect('/')
 
     return render(request, 'index.html', context)
