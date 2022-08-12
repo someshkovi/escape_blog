@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %} Tutorial {% endblock %}
+{% block stylesheets %}
+<style>
+.browse-horizontal {
+    font-family: "Roboto", Corbel, Avenir, "Lucida Grande", "Lucida Sans", sans-serif;
+    font-size: 14px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    border-top: 1px solid #CFE3DC;
+    border-bottom: 1px solid #CFE3DC;
+    padding: 20px 0;
+    margin-top: 2em;
+}
+
+.browse-horizontal:before, .browse-horizontal:after {
+    content: "";
+    display: table;
+}
+
+.browse-horizontal .right {
+    float: right;
+}
+
+.browse-horizontal .left {
+    float: left;
+}
+
+.browse-horizontal a {
+    text-decoration: none;
+}
+
+
+::selection {
+    background: #C9F0DD;
+}
+
+
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+<div>
+    <a href="{{ object.topic_title.get_absolute_url }}">{{object.topic_title}}</a> > {{object.topic_sub_title}}
+    <p><a href="{{ object.get_edit_url }}">Edit</a></p>
+    <div>
+    {{ tutorialtopic.content | safe }}
+    </div>
+
+    <div class="browse-horizontal">
+        {% if object.previous_topic %}
+            <div class="left"><a href="{{ object.previous_topic.get_absolute_url }}"><i class="icon icon-chevron-left"></i> {{ object.previous_topic }} </a></div>
+            {% endif %}
+        {% if object.next_topic %}
+            <div class="right"><a href="{{ object.next_topic.get_absolute_url }}">{{ object.next_topic }} <i class="icon icon-chevron-right"></i></a></div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

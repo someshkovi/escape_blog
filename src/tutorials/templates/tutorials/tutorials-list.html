@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Tutorial {% endblock %}
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div>
+    <h2>Tutorials</h2>
+    <h6><a href="create/tutorial">Create</a></h6>
+    <ol>
+        {% for tutorial in object_list %}
+            <li><a href="{{ tutorial.get_absolute_url }}">{{ tutorial.title }}</a></li>
+        {% endfor %}
+    </ol>
+</div>
+{% endblock content %}

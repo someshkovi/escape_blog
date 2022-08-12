@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h2>{{tutorial}}</h2>
+    <h6><a href="add/">Create</a></h6>
+    <ol>
+        {% for tutorial_topic in object_list %}
+            <li><a href="{{ tutorial_topic.get_absolute_url }}">{{ tutorial_topic.topic_sub_title }}</a></li>
+        {% endfor %}
+    </ol>
+{% endblock content %}

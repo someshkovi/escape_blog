@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h2>Publishers</h2>
+    <ul>
+        {% for tutorial_topic in object_list %}
+            <li>{{ tutorial_topic.topic_title }}</li>
+        {% endfor %}
+    </ul>
+    <ul>
+        {% for tutorial_topic in tutorialtopic_list %}
+            <li>{{ tutorial_topic.title }}</li>
+        {% endfor %}
+    </ul>
+{% endblock content %}
